@@ -15,7 +15,8 @@ export interface IAuthor {
 export interface IMessage {
     id: string,
     author: IAuthor,
-    date: string,
+    date: Date,
+    dialogId: string,
     content: string | File,
     status: MessageStatus
 }
