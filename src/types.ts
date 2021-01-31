@@ -1,7 +1,13 @@
 export enum MessageStatus {
-    sent = "Sent",
-    received = "Received",
-    seen = "Seen",
+    sent,
+    received,
+    seen,
+}
+
+export enum MessageType {
+    text,
+    image,
+    audio,
 }
 
 export interface IAuthor {

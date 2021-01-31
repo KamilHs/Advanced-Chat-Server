@@ -1,8 +1,24 @@
+import * as dotenv from "dotenv";
+dotenv.config({ path: __dirname+'/../.env' });
 import express = require("express");
 import cors = require("cors");
 import bodyParser = require("body-parser");
+import mongoose = require("mongoose");
 
 import { IDialog, MessageStatus, IMessage } from "./types";
+
+mongoose
+    .connect(`mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@cluster0.20o0c.mongodb.net/${process.env.MONGO_DB_DATABASE}?retryWrites=true&w=majority`,
+        {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        })
+
+    .then(res => {
+        console.log("Successfully connected");
+    }).catch(err => {
+        console.log(err);
+    });
 
 const app = express();
 
@@ -63,7 +79,6 @@ const dialogs: IDialog[] = [
     },
 ]
 
-
 const messages: IMessage[] = [
     {
         id: Math.random().toString(),
@@ -93,8 +108,6 @@ const messages: IMessage[] = [
     }
 ];
 
-
-
 app.get("/messages", (req: express.Request, res: express.Response) => {
     res.json(messages
         .filter(message => message.dialogId === req.query.dialog_id)
@@ -102,11 +115,8 @@ app.get("/messages", (req: express.Request, res: express.Response) => {
     );
 })
 
-
 app.get("/dialogs", (req: express.Request, res: express.Response) => {
     res.json(dialogs);
 })
-
-
 
 app.listen(process.env.PORT || 5555);
