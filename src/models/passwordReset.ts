@@ -1,15 +1,15 @@
 import { Schema, Model, model, Document } from "mongoose";
 
-export interface IDialogSchema {
+export interface IPasswordResetSchema {
     email: string;
     token: string;
 }
 
-export interface IDialogSchemaModel extends IDialogSchema, Document {
+export interface IPasswordResetSchemaModel extends IPasswordResetSchema, Document {
 
 }
 
-const DialogSchema = new Schema({
+const PasswordResetSchema = new Schema({
     email: {
         type: Schema.Types.String,
         required: true
@@ -22,6 +22,6 @@ const DialogSchema = new Schema({
     timestamps: true
 });
 
-const Dialog: Model<IDialogSchemaModel> = model<IDialogSchemaModel>("Dialog", DialogSchema);
+const PasswordReset: Model<IPasswordResetSchemaModel> = model<IPasswordResetSchemaModel>("PasswordReset", PasswordResetSchema);
 
-export default Dialog;
+export default PasswordReset;
